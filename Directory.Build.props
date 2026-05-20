@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <Description>Cashflow.Net</Description>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>15</LangVersion>
+    <RootNamespace>CashFlowNet</RootNamespace>
+  </PropertyGroup>
+</Project>
