@@ -1,11 +1,12 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/src/" />
-  <Folder Name="/src/bundles/" />
-  <Folder Name="/src/client/" />
-  <Folder Name="/src/server/" />
+  <Folder Name="/src/bundles/">
+    <Project Path="CashflowNet.Server/CashflowNet.Server.csproj" Id="ad32d726-4b62-4c16-a34e-2fa8aaba1142" />
+  </Folder>
 </Solution>
