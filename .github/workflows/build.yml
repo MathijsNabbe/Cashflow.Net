@@ -1,0 +1,61 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: [self-hosted, Linux]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: 'zulu'
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      
+      - name: Cache SonarQube scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+
+      - name: Install SonarQube scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
+        
+      - name: Start SonarQube Analysis
+        run: |
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin \
+          /k:"Cashflow.Net" \
+          /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}" \
+          /d:sonar.host.url="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_URL_DEPENDABOT || secrets.SONAR_HOST_URL }}" \
+          /d:sonar.exclusions="**/Migrations/**/*"
+
+      - name: Build
+        run: dotnet build
+
+      - name: Finish SonarQube Analysis
+        if: success()
+        run: |
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}"
