@@ -45,7 +45,7 @@ jobs:
         
       - name: Start SonarQube Analysis
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin \
+          ${{ runner.temp }}/scanner/dotnet-sonarscanner begin \
           /k:"Cashflow.Net" \
           /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}" \
           /d:sonar.host.url="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_URL_DEPENDABOT || secrets.SONAR_HOST_URL }}" \
@@ -57,4 +57,4 @@ jobs:
       - name: Finish SonarQube Analysis
         if: success()
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}"
+          ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ github.actor == 'dependabot[bot]' && secrets.SONAR_TOKEN_DEPENDABOT || secrets.SONAR_TOKEN }}"
