@@ -1,7 +1,6 @@
 <Project>
   <PropertyGroup>
     <Description>Cashflow.Net</Description>
-    <RootNamespace>CashFlowNet</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

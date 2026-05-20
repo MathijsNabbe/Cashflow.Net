@@ -11,6 +11,7 @@
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/bundles/">
+    <Project Path="src/bundles/CashflowNet.Client/CashflowNet.Client.csproj" />
     <Project Path="src/bundles/CashflowNet.Server/CashflowNet.Server.csproj" />
   </Folder>
 </Solution>

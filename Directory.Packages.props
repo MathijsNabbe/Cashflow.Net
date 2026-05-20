@@ -2,4 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="MudBlazor" Version="9.4.0" />
+  </ItemGroup>
 </Project>
