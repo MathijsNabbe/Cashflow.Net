@@ -1,3 +1,4 @@
+using CashflowNet.Client.Communication.Extensions;
 using MudBlazor.Services;
 using CashflowNet.Client.Components;
 
@@ -9,6 +10,8 @@ builder.Services.AddMudServices();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddCommunicationLayer();
 
 var app = builder.Build();
 

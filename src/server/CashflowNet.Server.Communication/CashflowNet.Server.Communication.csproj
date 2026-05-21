@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CashflowNet.Server.Domain\CashflowNet.Server.Domain.csproj" />
+  </ItemGroup>
+</Project>

@@ -2,7 +2,7 @@ namespace CashflowNet.Server.Domain.Entities;
 
 public class BankAccount
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Iban { get; set; }
+    public required Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required string Iban { get; set; }
 }
