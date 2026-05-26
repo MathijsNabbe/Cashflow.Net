@@ -6,7 +6,8 @@
 <MudIconButton Icon="@Icons.Material.Filled.AddCard" Color="Color.Primary" OnClick="CreateBankAccount"/>
 
 <MudTable T="GetBankAccountsViewModel"
-          ServerData="LoadBankAccounts">
+          ServerData="LoadBankAccounts"
+          @ref="_bankAccountsTable">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Bank accounts</MudText>
     </ToolBarContent>

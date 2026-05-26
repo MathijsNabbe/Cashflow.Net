@@ -8,7 +8,8 @@
                Variant="Variant.Outlined"
                Dense="true"
                Margin="Margin.Dense"
-               FitContent="true">
+               FitContent="true"
+               Placeholder="No bank account selected">
         @foreach (var bankAccount in _bankAccounts)
         {
             <MudSelectItem T="GetBankAccountsViewModel"

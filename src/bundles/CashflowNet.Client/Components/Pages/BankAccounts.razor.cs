@@ -7,7 +7,7 @@ namespace CashflowNet.Client.Components.Pages;
 
 public partial class BankAccounts
 {
-    private MudTable<GetBankAccountsViewModel>? _bankAccountsTable;
+    private MudTable<GetBankAccountsViewModel> _bankAccountsTable = null!;
     
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
 
@@ -31,6 +31,8 @@ public partial class BankAccounts
             Name = "New Bank Account",
             Iban = "DE12345678901234567890"
         });
+
+        await _bankAccountsTable.ReloadServerData();
     }
 
     private async Task DeleteBankAccount(GetBankAccountsViewModel context)
@@ -39,5 +41,7 @@ public partial class BankAccounts
         {
             Id = context.Id
         });
+        
+        await _bankAccountsTable.ReloadServerData();
     }
 }
