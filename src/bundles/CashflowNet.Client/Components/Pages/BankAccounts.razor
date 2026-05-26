@@ -7,14 +7,16 @@
 
 <MudTable T="GetBankAccountsViewModel"
           ServerData="LoadBankAccounts"
-          @ref="_bankAccountsTable">
+          @ref="_bankAccountsTable"
+          CanCancelEdit="true"
+          Hover="true"
+          @bind-SelectedItem="_selectedBankAccount"
+          OnCommitEditClick="UpdateBankAccount">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Bank accounts</MudText>
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Name</MudTh>
-        <MudTh>Iban</MudTh>
-        <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
@@ -24,6 +26,11 @@
                            OnClick="@(() => DeleteBankAccount(context))"/>
         </MudTd>
     </RowTemplate>
+    <RowEditingTemplate>
+        <MudTd DataLabel="Name">
+            <MudTextField @bind-Value="context.Name" Required />
+        </MudTd>
+    </RowEditingTemplate>
     <NoRecordsContent>
         <MudText>No bank accounts found</MudText>
     </NoRecordsContent>

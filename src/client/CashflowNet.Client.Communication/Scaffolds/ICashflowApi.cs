@@ -13,4 +13,7 @@ public interface ICashflowApi
     
     [Delete("/bankaccounts")]
     Task DeleteBankAccount(DeleteBankAccountViewModel bankAccount);
+    
+    [Put("/bankaccounts")]
+    Task UpdateBankAccount(UpdateBankAccountViewModel bankAccount);
 }

@@ -8,7 +8,8 @@ namespace CashflowNet.Client.Components.Pages;
 public partial class BankAccounts
 {
     private MudTable<GetBankAccountsViewModel> _bankAccountsTable = null!;
-    
+    private GetBankAccountsViewModel? _selectedBankAccount;
+
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
 
     private async Task<TableData<GetBankAccountsViewModel>> LoadBankAccounts(
@@ -41,6 +42,20 @@ public partial class BankAccounts
             Id = context.Id
         });
         
+        await _bankAccountsTable.ReloadServerData();
+    }
+
+    private async Task UpdateBankAccount()
+    {
+        if (_selectedBankAccount is null)
+            return;
+        
+        await CashflowApi.UpdateBankAccount(new UpdateBankAccountViewModel
+        {
+            Id = _selectedBankAccount.Id,
+            Name = _selectedBankAccount.Name
+        });
+
         await _bankAccountsTable.ReloadServerData();
     }
 }
