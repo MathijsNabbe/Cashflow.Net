@@ -29,4 +29,11 @@ public class BankAccountService : IBankAccountService
             Iban = x.Iban
         }).ToList();
     }
+    
+    public async Task DeleteBankAccount(Guid id)
+    {
+        _dbContext.BankAccounts.Remove(_dbContext.BankAccounts.First(x => x.Id == id));
+        
+        await _dbContext.SaveChangesAsync();
+    }
 }

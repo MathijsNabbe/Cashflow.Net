@@ -10,4 +10,7 @@ public interface ICashflowApi
     
     [Get("/bankaccounts")]
     Task<List<GetBankAccountsViewModel>> GetBankAccounts();
+    
+    [Delete("/bankaccounts")]
+    Task DeleteBankAccount(DeleteBankAccountViewModel bankAccount);
 }

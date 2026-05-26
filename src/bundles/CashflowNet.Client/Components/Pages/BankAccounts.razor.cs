@@ -1,6 +1,7 @@
 using CashflowNet.Client.Communication.Scaffolds;
 using CashflowNet.Client.Communication.ViewModels;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace CashflowNet.Client.Components.Pages;
 
@@ -21,6 +22,14 @@ public partial class BankAccounts
         {
             Name = "New Bank Account",
             Iban = "DE12345678901234567890"
+        });
+    }
+
+    private async Task DeleteBankAccount(GetBankAccountsViewModel context)
+    {
+        await CashflowApi.DeleteBankAccount(new DeleteBankAccountViewModel
+        {
+            Id = context.Id
         });
     }
 }

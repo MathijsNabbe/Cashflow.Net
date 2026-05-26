@@ -6,4 +6,5 @@ public interface IBankAccountService
 {
     public Task CreateBankAccount(CreateBankAccountDto bankAccount);
     public Task<List<GetBankAccountsDto>> GetBankAccounts();
+    public Task DeleteBankAccount(Guid id);
 }

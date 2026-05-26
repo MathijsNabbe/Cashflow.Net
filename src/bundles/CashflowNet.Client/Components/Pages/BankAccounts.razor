@@ -14,5 +14,10 @@
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Iban">@context.Iban</MudTd>
+        <MudTd DataLabel="Actions">
+            <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                           Color="Color.Primary"
+                           OnClick="@(() => DeleteBankAccount(context))" />
+        </MudTd>
     </RowTemplate>
 </MudTable>
