@@ -19,7 +19,6 @@ public class GetBankAccountsEndpoint(IBankAccountService bankAccountService) : E
         {
             Id = x.Id,
             Name = x.Name,
-            Iban = x.Iban
         }), cancellation: ct);
     }
 }

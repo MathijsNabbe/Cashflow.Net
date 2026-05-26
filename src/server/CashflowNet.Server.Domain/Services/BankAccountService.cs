@@ -13,8 +13,7 @@ public class BankAccountService : IBankAccountService
         _dbContext.BankAccounts.Add(new BankAccount
         {
             Id = Guid.NewGuid(),
-            Name = bankAccount.Name,
-            Iban = bankAccount.Iban
+            Name = bankAccount.Name
         });
         
         await _dbContext.SaveChangesAsync();
@@ -25,8 +24,7 @@ public class BankAccountService : IBankAccountService
         return _dbContext.BankAccounts.Select(x => new GetBankAccountsDto
         {
             Id = x.Id,
-            Name = x.Name,
-            Iban = x.Iban
+            Name = x.Name
         }).ToList();
     }
     

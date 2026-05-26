@@ -28,8 +28,7 @@ public partial class BankAccounts
     {
         await CashflowApi.CreateBankAccount(new CreateBankAccountViewModel
         {
-            Name = "New Bank Account",
-            Iban = "DE12345678901234567890"
+            Name = "New Bank Account"
         });
 
         await _bankAccountsTable.ReloadServerData();

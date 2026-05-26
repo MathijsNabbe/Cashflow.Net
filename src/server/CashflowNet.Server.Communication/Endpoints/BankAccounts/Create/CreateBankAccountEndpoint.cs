@@ -16,8 +16,7 @@ public class CreateBankAccountEndpoint(IBankAccountService bankAccountService) :
     {
         await bankAccountService.CreateBankAccount(new CreateBankAccountDto
         {
-            Name = request.Name,
-            Iban = request.Iban
+            Name = request.Name
         });
 
         await Send.OkAsync(cancellation: ct);
