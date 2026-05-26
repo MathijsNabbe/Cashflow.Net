@@ -1,0 +1,20 @@
+@using CashflowNet.Client.Communication.ViewModels
+
+<MudAppBar Elevation="1">
+    <MudText Typo="Typo.h5" Class="ml-3">Cashflow.Net</MudText>
+    <MudSpacer />
+    <MudSelect T="GetBankAccountsViewModel"
+               Label="Bank account"
+               Variant="Variant.Outlined"
+               Dense="true"
+               Margin="Margin.Dense"
+               FitContent="true">
+        @foreach (var bankAccount in _bankAccounts)
+        {
+            <MudSelectItem T="GetBankAccountsViewModel"
+                           Value="@bankAccount">
+                @bankAccount.Name
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudAppBar>
