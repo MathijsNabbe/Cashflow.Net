@@ -19,4 +19,14 @@ public class BankAccountService : IBankAccountService
         
         await _dbContext.SaveChangesAsync();
     }
+    
+    public async Task<List<GetBankAccountsDto>> GetBankAccounts()
+    {
+        return _dbContext.BankAccounts.Select(x => new GetBankAccountsDto
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Iban = x.Iban
+        }).ToList();
+    }
 }

@@ -8,3 +8,14 @@
 <MudText Typo="Typo.h3" GutterBottom="true">Bank accounts</MudText>
 
 <MudIconButton Icon="@Icons.Material.Filled.AddCard" Color="Color.Primary" OnClick="CreateBankAccount"/>
+
+<MudTable Items="@_bankAccounts">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Iban</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Iban">@context.Iban</MudTd>
+    </RowTemplate>
+</MudTable>
