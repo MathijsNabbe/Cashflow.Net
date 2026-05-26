@@ -1,15 +1,19 @@
 ﻿@page "/bankaccounts"
+@using CashflowNet.Client.Communication.ViewModels
 
 <PageTitle>Bank accounts</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Bank accounts</MudText>
-
 <MudIconButton Icon="@Icons.Material.Filled.AddCard" Color="Color.Primary" OnClick="CreateBankAccount"/>
 
-<MudTable Items="@_bankAccounts">
+<MudTable T="GetBankAccountsViewModel"
+          ServerData="LoadBankAccounts">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Bank accounts</MudText>
+    </ToolBarContent>
     <HeaderContent>
         <MudTh>Name</MudTh>
         <MudTh>Iban</MudTh>
+        <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
@@ -17,7 +21,10 @@
         <MudTd DataLabel="Actions">
             <MudIconButton Icon="@Icons.Material.Filled.Delete"
                            Color="Color.Primary"
-                           OnClick="@(() => DeleteBankAccount(context))" />
+                           OnClick="@(() => DeleteBankAccount(context))"/>
         </MudTd>
     </RowTemplate>
+    <NoRecordsContent>
+        <MudText>No bank accounts found</MudText>
+    </NoRecordsContent>
 </MudTable>

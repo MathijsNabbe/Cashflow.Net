@@ -1,18 +1,27 @@
 using CashflowNet.Client.Communication.Scaffolds;
 using CashflowNet.Client.Communication.ViewModels;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace CashflowNet.Client.Components.Pages;
 
 public partial class BankAccounts
 {
-    private IEnumerable<GetBankAccountsViewModel>? _bankAccounts;
+    private MudTable<GetBankAccountsViewModel>? _bankAccountsTable;
     
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync()
+    private async Task<TableData<GetBankAccountsViewModel>> LoadBankAccounts(
+        TableState state,
+        CancellationToken cancellationToken)
     {
-        _bankAccounts = await CashflowApi.GetBankAccounts();
+        var bankAccounts = await CashflowApi.GetBankAccounts();
+
+        return new TableData<GetBankAccountsViewModel>
+        {
+            Items = bankAccounts,
+            TotalItems = bankAccounts.Count
+        };
     }
 
     private async Task CreateBankAccount()
