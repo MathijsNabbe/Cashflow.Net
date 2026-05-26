@@ -11,7 +11,9 @@
           CanCancelEdit="true"
           Hover="true"
           @bind-SelectedItem="_selectedBankAccount"
-          OnCommitEditClick="UpdateBankAccount">
+          OnCommitEditClick="UpdateBankAccount"
+          RowEditPreview="PrepareBankAccountEdit"
+          RowEditCancel="ResetBankAccountEdit">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Bank accounts</MudText>
     </ToolBarContent>

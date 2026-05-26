@@ -9,6 +9,7 @@ public partial class BankAccounts
 {
     private MudTable<GetBankAccountsViewModel> _bankAccountsTable = null!;
     private GetBankAccountsViewModel? _selectedBankAccount;
+    private GetBankAccountsViewModel? _bankAccountBackup;
 
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
 
@@ -57,5 +58,26 @@ public partial class BankAccounts
         });
 
         await _bankAccountsTable.ReloadServerData();
+    }
+
+    private void PrepareBankAccountEdit(object? bankAccount)
+    {
+        if (bankAccount is null)
+            return;
+
+        _bankAccountBackup = new GetBankAccountsViewModel
+        {
+            Id = ((GetBankAccountsViewModel)bankAccount).Id,
+            Name = ((GetBankAccountsViewModel)bankAccount).Name
+        };
+    }
+
+    private void ResetBankAccountEdit(object? bankAccount)
+    {
+        if (bankAccount is null || _bankAccountBackup is null || _bankAccountBackup.Id != ((GetBankAccountsViewModel)bankAccount).Id)
+            return;
+        
+        ((GetBankAccountsViewModel)bankAccount).Id = _bankAccountBackup.Id;
+        ((GetBankAccountsViewModel)bankAccount).Name = _bankAccountBackup.Name;
     }
 }
