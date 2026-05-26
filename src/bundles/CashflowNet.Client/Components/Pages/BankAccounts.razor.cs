@@ -1,7 +1,6 @@
 using CashflowNet.Client.Communication.Scaffolds;
 using CashflowNet.Client.Communication.ViewModels;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace CashflowNet.Client.Components.Pages;
 
