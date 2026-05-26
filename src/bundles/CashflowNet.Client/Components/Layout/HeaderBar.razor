@@ -9,13 +9,26 @@
                Dense="true"
                Margin="Margin.Dense"
                FitContent="true"
-               Placeholder="No bank account selected">
-        @foreach (var bankAccount in _bankAccounts)
+               Placeholder="No bank account selected"
+               Value="@_selectedBankAccount"
+               ValueChanged="OnBankAccountChanged">
+        @if (!_bankAccounts.Any())
         {
             <MudSelectItem T="GetBankAccountsViewModel"
-                           Value="@bankAccount">
-                @bankAccount.Name
+                           Value="@null"
+                           Disabled="true">
+                No bank accounts found.
             </MudSelectItem>
+        }
+        else
+        {
+            @foreach (var bankAccount in _bankAccounts)
+            {
+                <MudSelectItem T="GetBankAccountsViewModel"
+                               Value="@bankAccount">
+                    @bankAccount.Name
+                </MudSelectItem>
+            }
         }
     </MudSelect>
 </MudAppBar>

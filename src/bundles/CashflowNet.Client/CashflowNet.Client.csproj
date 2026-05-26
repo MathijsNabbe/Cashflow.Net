@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor.LocalStorage" />
     <PackageReference Include="MudBlazor" />
   </ItemGroup>
 
