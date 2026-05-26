@@ -6,6 +6,7 @@ namespace CashflowNet.Server.Domain;
 public class CashflowDbContext : DbContext
 {
     public DbSet<BankAccount> BankAccounts { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
 
     public string DbPath { get; }
 
