@@ -18,7 +18,7 @@ public interface ICashflowApi
     Task DeleteBankAccount(DeleteBankAccountViewModel bankAccount);
     
     [Put("/bankaccounts")]
-    Task UpdateBankAccount(UpdateBankAccountViewModel bankAccount);
+    Task UpdateBankAccount(UpdateBankAccountRequestModel bankAccount);
     
     [Post("/transactions")]
     Task CreateTransaction(CreateTransactionRequestModel transaction);

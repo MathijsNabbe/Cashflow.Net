@@ -52,7 +52,7 @@ public partial class BankAccounts
         if (_selectedBankAccount is null)
             return;
         
-        await CashflowApi.UpdateBankAccount(new UpdateBankAccountViewModel
+        await CashflowApi.UpdateBankAccount(new UpdateBankAccountRequestModel
         {
             Id = _selectedBankAccount.Id,
             Name = _selectedBankAccount.Name
