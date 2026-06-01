@@ -1,5 +1,6 @@
 using CashflowNet.Client.Communication.Scaffolds;
 using CashflowNet.Client.Communication.ViewModels;
+using CashflowNet.Shared.RequestModels.BankAccounts;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -28,7 +29,7 @@ public partial class BankAccounts
 
     private async Task CreateBankAccount()
     {
-        await CashflowApi.CreateBankAccount(new CreateBankAccountViewModel
+        await CashflowApi.CreateBankAccount(new CreateBankAccountRequestModel
         {
             Name = "New Bank Account"
         });

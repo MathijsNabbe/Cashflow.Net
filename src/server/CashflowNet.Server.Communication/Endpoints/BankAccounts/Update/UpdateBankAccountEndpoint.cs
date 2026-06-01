@@ -1,4 +1,3 @@
-using CashflowNet.Server.Communication.Endpoints.BankAccounts.Create;
 using CashflowNet.Server.Domain.Dtos.BankAccounts;
 using CashflowNet.Server.Domain.Interfaces;
 using FastEndpoints;

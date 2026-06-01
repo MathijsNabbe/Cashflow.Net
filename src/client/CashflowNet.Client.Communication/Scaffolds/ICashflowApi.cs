@@ -1,4 +1,5 @@
 using CashflowNet.Client.Communication.ViewModels;
+using CashflowNet.Shared.RequestModels.BankAccounts;
 using CashflowNet.Shared.RequestModels.Transactions;
 using CashflowNet.Shared.ViewModels.Transactions;
 using Refit;
@@ -8,7 +9,7 @@ namespace CashflowNet.Client.Communication.Scaffolds;
 public interface ICashflowApi
 {
     [Post("/bankaccounts")]
-    Task CreateBankAccount(CreateBankAccountViewModel bankAccount);
+    Task CreateBankAccount(CreateBankAccountRequestModel bankAccount);
     
     [Get("/bankaccounts")]
     Task<List<GetBankAccountsViewModel>> GetBankAccounts();
