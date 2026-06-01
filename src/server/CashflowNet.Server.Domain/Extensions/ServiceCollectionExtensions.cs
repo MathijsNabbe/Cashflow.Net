@@ -8,7 +8,9 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDomainLayer(this IServiceCollection services)
     {
-        services.AddScoped<IBankAccountService, BankAccountService>();
+        services
+            .AddScoped<IBankAccountService, BankAccountService>()
+            .AddScoped<ITransactionService, TransactionService>();
         
         return services;
     }

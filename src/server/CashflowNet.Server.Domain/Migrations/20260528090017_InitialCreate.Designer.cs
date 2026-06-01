@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CashflowNet.Server.Domain.Migrations
 {
     [DbContext(typeof(CashflowDbContext))]
-    [Migration("20260526152955_InitialCreate")]
+    [Migration("20260528090017_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -44,9 +44,8 @@ namespace CashflowNet.Server.Domain.Migrations
                     b.Property<Guid>("BankAccountId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Currency")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -1,4 +1,3 @@
-using CashflowNet.Server.Domain.Dtos.BankAccounts;
 using CashflowNet.Server.Domain.Interfaces;
 using FastEndpoints;
 
@@ -14,7 +13,7 @@ public class CreateBankAccountEndpoint(IBankAccountService bankAccountService) :
 
     public override async Task HandleAsync(CreateBankAccountRequest request, CancellationToken ct)
     {
-        await bankAccountService.CreateBankAccount(new CreateBankAccountDto
+        await bankAccountService.CreateBankAccount(new Domain.Dtos.BankAccounts.CreateBankAccountDto
         {
             Name = request.Name
         });

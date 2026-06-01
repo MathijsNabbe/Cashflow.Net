@@ -9,7 +9,9 @@
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
   </Folder>
-  <Folder Name="/src/" />
+  <Folder Name="/src/">
+    <Project Path="src/CashflowNet.Shared/CashflowNet.Shared.csproj" />
+  </Folder>
   <Folder Name="/src/bundles/">
     <Project Path="src/bundles/CashflowNet.Client/CashflowNet.Client.csproj" />
     <Project Path="src/bundles/CashflowNet.Server/CashflowNet.Server.csproj" />

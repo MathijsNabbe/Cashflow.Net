@@ -1,0 +1,40 @@
+﻿@page "/transactions"
+@using CashflowNet.Shared.ViewModels.Transactions
+
+<PageTitle>Transactions</PageTitle>
+
+<MudIconButton Icon="@Icons.Material.Filled.AddCard" Color="Color.Primary" OnClick="CreateTransaction"/>
+
+<MudTable T="GetTransactionsViewModel"
+          ServerData="LoadTransactions"
+          @ref="_transactionTable"
+          CanCancelEdit="true"
+          Hover="true"
+          @bind-SelectedItem="_selectedTransaction"
+          GroupBy="@_groupDefinition">
+          @* OnCommitEditClick="UpdateBankAccount" *@
+          @* RowEditPreview="PrepareBankAccountEdit" *@
+          @* RowEditCancel="ResetBankAccountEdit"> *@
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Bank accounts</MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        @* <MudTd DataLabel="Actions"> *@
+        @*     <MudIconButton Icon="@Icons.Material.Filled.Delete" *@
+        @*                    Color="Color.Primary" *@
+        @*                    OnClick="@(() => DeleteBankAccount(context))"/> *@
+        @* </MudTd> *@
+    </RowTemplate>
+    @* <RowEditingTemplate> *@
+    @*     <MudTd DataLabel="Name"> *@
+    @*         <MudTextField @bind-Value="context.Name" Required /> *@
+    @*     </MudTd> *@
+    @* </RowEditingTemplate> *@
+    @* <NoRecordsContent> *@
+    @*     <MudText>No bank accounts found</MudText> *@
+    @* </NoRecordsContent> *@
+</MudTable>

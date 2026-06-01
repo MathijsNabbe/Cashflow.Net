@@ -1,4 +1,6 @@
 using CashflowNet.Client.Communication.ViewModels;
+using CashflowNet.Shared.RequestModels.Transactions;
+using CashflowNet.Shared.ViewModels.Transactions;
 using Refit;
 
 namespace CashflowNet.Client.Communication.Scaffolds;
@@ -16,4 +18,10 @@ public interface ICashflowApi
     
     [Put("/bankaccounts")]
     Task UpdateBankAccount(UpdateBankAccountViewModel bankAccount);
+    
+    [Post("/transactions")]
+    Task CreateTransaction(CreateTransactionRequest transaction);
+    
+    [Get("/transactions")]
+    Task<List<GetTransactionsViewModel>> GetTransactions(Guid bankAccountId);
 }

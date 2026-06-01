@@ -1,3 +1,4 @@
+using CashflowNet.Shared.Serialization;
 using FastEndpoints;
 using Microsoft.AspNetCore.Builder;
 
@@ -7,7 +8,8 @@ public static class WebApplicationExtensions
 {
     public static WebApplication UseCommunicationLayer(this WebApplication app)
     {
-        app.UseFastEndpoints();
+        app.UseFastEndpoints(options =>
+            CashflowJsonSerializerOptions.ApplyTo(options.Serializer.Options));
         
         return app;
     }

@@ -15,7 +15,7 @@ public class UpdateBankAccountEndpoint(IBankAccountService bankAccountService) :
 
     public override async Task HandleAsync(UpdateBankAccountRequest request, CancellationToken ct)
     {
-        await bankAccountService.UpdateBankAccount(new UpdateBankAccountDto
+        await bankAccountService.UpdateBankAccount(new Domain.Dtos.BankAccounts.UpdateBankAccountDto
         {
             Id = request.Id,
             Name = request.Name

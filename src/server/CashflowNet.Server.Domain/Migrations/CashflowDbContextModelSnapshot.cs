@@ -41,9 +41,8 @@ namespace CashflowNet.Server.Domain.Migrations
                     b.Property<Guid>("BankAccountId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Currency")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Currency")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -1,4 +1,4 @@
-namespace CashflowNet.Server.Domain.Enums;
+namespace CashflowNet.Shared.Enums;
 
 public enum TransactionType
 {
