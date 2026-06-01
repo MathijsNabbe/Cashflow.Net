@@ -1,5 +1,3 @@
-using CashflowNet.Client.Communication.ViewModels;
-
 namespace CashflowNet.Client.Interfaces;
 
 public interface IBankAccountService

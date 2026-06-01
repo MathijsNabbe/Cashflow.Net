@@ -1,4 +1,3 @@
-using CashflowNet.Client.Communication.ViewModels;
 using CashflowNet.Shared.RequestModels.BankAccounts;
 using CashflowNet.Shared.RequestModels.Transactions;
 using CashflowNet.Shared.ViewModels.BankAccounts;
@@ -16,7 +15,7 @@ public interface ICashflowApi
     Task<List<GetBankAccountsViewModel>> GetBankAccounts();
     
     [Delete("/bankaccounts")]
-    Task DeleteBankAccount(DeleteBankAccountViewModel bankAccount);
+    Task DeleteBankAccount(DeleteBankAccountRequestModel bankAccount);
     
     [Put("/bankaccounts")]
     Task UpdateBankAccount(UpdateBankAccountRequestModel bankAccount);
