@@ -1,4 +1,4 @@
-namespace CashflowNet.Client.Communication.ViewModels;
+namespace CashflowNet.Shared.ViewModels.BankAccounts;
 
 public class GetBankAccountsViewModel
 {

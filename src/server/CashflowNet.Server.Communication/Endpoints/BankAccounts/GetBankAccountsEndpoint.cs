@@ -1,9 +1,10 @@
 using CashflowNet.Server.Domain.Interfaces;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 using FastEndpoints;
 
-namespace CashflowNet.Server.Communication.Endpoints.BankAccounts.Get;
+namespace CashflowNet.Server.Communication.Endpoints.BankAccounts;
 
-public class GetBankAccountsEndpoint(IBankAccountService bankAccountService) : EndpointWithoutRequest<IEnumerable<GetBankAccountsResponse>>
+public class GetBankAccountsEndpoint(IBankAccountService bankAccountService) : EndpointWithoutRequest<IEnumerable<GetBankAccountsViewModel>>
 {
     public override void Configure()
     {
@@ -15,7 +16,7 @@ public class GetBankAccountsEndpoint(IBankAccountService bankAccountService) : E
     {
         var result = await bankAccountService.GetBankAccounts();
 
-        await Send.OkAsync(result.Select(x => new GetBankAccountsResponse
+        await Send.OkAsync(result.Select(x => new GetBankAccountsViewModel
         {
             Id = x.Id,
             Name = x.Name,

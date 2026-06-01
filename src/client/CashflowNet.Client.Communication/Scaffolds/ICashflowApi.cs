@@ -1,6 +1,7 @@
 using CashflowNet.Client.Communication.ViewModels;
 using CashflowNet.Shared.RequestModels.BankAccounts;
 using CashflowNet.Shared.RequestModels.Transactions;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 using CashflowNet.Shared.ViewModels.Transactions;
 using Refit;
 

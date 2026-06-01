@@ -5,4 +5,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CashflowNet.Server.Domain\CashflowNet.Server.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Endpoints\BankAccounts\Get\" />
+  </ItemGroup>
 </Project>

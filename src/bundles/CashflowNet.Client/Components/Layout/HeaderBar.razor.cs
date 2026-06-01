@@ -1,6 +1,6 @@
 using CashflowNet.Client.Communication.Scaffolds;
-using CashflowNet.Client.Communication.ViewModels;
 using CashflowNet.Client.Interfaces;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 using Microsoft.AspNetCore.Components;
 
 namespace CashflowNet.Client.Components.Layout;

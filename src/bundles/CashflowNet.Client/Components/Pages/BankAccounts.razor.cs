@@ -1,6 +1,7 @@
 using CashflowNet.Client.Communication.Scaffolds;
 using CashflowNet.Client.Communication.ViewModels;
 using CashflowNet.Shared.RequestModels.BankAccounts;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 

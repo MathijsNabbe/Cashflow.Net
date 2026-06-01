@@ -1,4 +1,3 @@
-using CashflowNet.Server.Communication.Endpoints.BankAccounts.Get;
 using CashflowNet.Server.Domain.Interfaces;
 using CashflowNet.Shared.Enums;
 using CashflowNet.Shared.RequestModels.Transactions;
