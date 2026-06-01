@@ -1,4 +1,5 @@
 ﻿@page "/transactions"
+@using CashflowNet.Client.Components.Formatters
 @using CashflowNet.Shared.ViewModels.Transactions
 
 <PageTitle>Transactions</PageTitle>
@@ -20,9 +21,16 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Name</MudTh>
+        <MudTh>Value</MudTh>
+        <MudTh>Start Date</MudTh>
+        <MudTh>Bank Account</MudTh>
+        <MudTh>Target Account</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Value">@(CurrencyFormatter.GetCurrencySymbol(context.Currency) + context.Value)</MudTd>
+        <MudTd DataLabel="Start Date">@context.StartDate</MudTd>
+        <MudTd DataLabel="Bank Account">@context.BankAccount.Name</MudTd>
         @* <MudTd DataLabel="Actions"> *@
         @*     <MudIconButton Icon="@Icons.Material.Filled.Delete" *@
         @*                    Color="Color.Primary" *@

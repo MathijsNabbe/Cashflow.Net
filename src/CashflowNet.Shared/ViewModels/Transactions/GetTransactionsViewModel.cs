@@ -1,4 +1,5 @@
 using CashflowNet.Shared.Enums;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 
 namespace CashflowNet.Shared.ViewModels.Transactions;
 
@@ -11,6 +12,6 @@ public class GetTransactionsViewModel
     public DateTime? StartDate { get; set; }
     public required TransactionType Type { get; set; }
         
-    public required Guid BankAccountId { get; set; }
-    public Guid? TargetBankAccountId { get; set; }
+    public GetBankAccountsViewModel BankAccount { get; set; }
+    public GetBankAccountsViewModel? TargetBankAccount { get; set; }
 }

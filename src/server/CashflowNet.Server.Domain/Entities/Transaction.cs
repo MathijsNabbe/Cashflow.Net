@@ -12,7 +12,7 @@ public class Transaction
     public required TransactionType Type { get; set; }
     
     public required Guid BankAccountId { get; set; }
-    public BankAccount? BankAccount { get; set; }
+    public BankAccount BankAccount { get; set; }
     
     public Guid? TargetBankAccountId { get; set; }
     public BankAccount? TargetBankAccount { get; set; }

@@ -1,3 +1,4 @@
+using CashflowNet.Server.Domain.Dtos.BankAccounts;
 using CashflowNet.Shared.Enums;
 
 namespace CashflowNet.Server.Domain.Dtos.Transactions;
@@ -10,6 +11,6 @@ public class GetTransactionsDto
     public required Currency Currency { get; set; }
     public required DateTime StartDate { get; set; }
     public required TransactionType Type { get; set; }
-    public required Guid BankAccountId { get; set; }
-    public Guid? TargetBankAccountId { get; set; }
+    public required GetBankAccountsDto BankAccount { get; set; }
+    public GetBankAccountsDto? TargetBankAccount { get; set; }
 }

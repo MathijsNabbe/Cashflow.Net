@@ -1,12 +1,12 @@
 using CashflowNet.Server.Domain.Interfaces;
-using CashflowNet.Shared.Enums;
 using CashflowNet.Shared.RequestModels.Transactions;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 using CashflowNet.Shared.ViewModels.Transactions;
 using FastEndpoints;
 
 namespace CashflowNet.Server.Communication.Endpoints.Transactions;
 
-public class GetTransactionsByBankAccountEndpoint(ITransactionService transactionService) : 
+public class GetTransactionsByBankAccountEndpoint(ITransactionService transactionService) :
     Endpoint<GetTransactionsRequestModel, IEnumerable<GetTransactionsViewModel>>
 {
     public override void Configure()
@@ -26,8 +26,19 @@ public class GetTransactionsByBankAccountEndpoint(ITransactionService transactio
             Value = x.Value,
             Currency = x.Currency,
             Type = x.Type,
-            BankAccountId = x.BankAccountId,
-            TargetBankAccountId = x.TargetBankAccountId
+            BankAccount = new GetBankAccountsViewModel
+            {
+                Id = x.BankAccount.Id,
+                Name = x.BankAccount.Name
+            },
+            TargetBankAccount =
+                x.TargetBankAccount != null
+                    ? new GetBankAccountsViewModel
+                    {
+                        Id = x.TargetBankAccount.Id,
+                        Name = x.TargetBankAccount.Name
+                    }
+                    : null
         }), cancellation: ct);
     }
 }
