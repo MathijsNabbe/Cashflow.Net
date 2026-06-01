@@ -2,7 +2,7 @@ using CashflowNet.Shared.Enums;
 
 namespace CashflowNet.Shared.RequestModels.Transactions;
 
-public class CreateTransactionRequest
+public class CreateTransactionRequestModel
 {
     public required string Name { get; set; }
     public required decimal Value { get; set; }

@@ -5,7 +5,7 @@ using FastEndpoints;
 
 namespace CashflowNet.Server.Communication.Endpoints.Transactions;
 
-public class CreateTransactionEndpoint(ITransactionService transactionService) : Endpoint<CreateTransactionRequest>
+public class CreateTransactionEndpoint(ITransactionService transactionService) : Endpoint<CreateTransactionRequestModel>
 {
     public override void Configure()
     {
@@ -13,7 +13,7 @@ public class CreateTransactionEndpoint(ITransactionService transactionService) :
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CreateTransactionRequest request, CancellationToken ct)
+    public override async Task HandleAsync(CreateTransactionRequestModel request, CancellationToken ct)
     {
         await transactionService.CreateTransaction(new CreateTransactionDto
         {

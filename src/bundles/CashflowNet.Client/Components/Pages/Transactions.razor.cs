@@ -53,7 +53,7 @@ public partial class Transactions
 
     private async Task CreateTransaction()
     {
-        await CashflowApi.CreateTransaction(new CreateTransactionRequest
+        await CashflowApi.CreateTransaction(new CreateTransactionRequestModel
         {
             Name = "New income",
             Value = 2000,

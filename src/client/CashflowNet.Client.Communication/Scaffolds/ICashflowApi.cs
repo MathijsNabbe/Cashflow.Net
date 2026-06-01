@@ -20,7 +20,7 @@ public interface ICashflowApi
     Task UpdateBankAccount(UpdateBankAccountViewModel bankAccount);
     
     [Post("/transactions")]
-    Task CreateTransaction(CreateTransactionRequest transaction);
+    Task CreateTransaction(CreateTransactionRequestModel transaction);
     
     [Get("/transactions")]
     Task<List<GetTransactionsViewModel>> GetTransactions(Guid bankAccountId);

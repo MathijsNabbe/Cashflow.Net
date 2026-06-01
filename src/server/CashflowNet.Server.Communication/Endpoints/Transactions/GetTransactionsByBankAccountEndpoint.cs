@@ -8,7 +8,7 @@ using FastEndpoints;
 namespace CashflowNet.Server.Communication.Endpoints.Transactions;
 
 public class GetTransactionsByBankAccountEndpoint(ITransactionService transactionService) : 
-    Endpoint<GetTransactionsRequest, IEnumerable<GetTransactionsViewModel>>
+    Endpoint<GetTransactionsRequestModel, IEnumerable<GetTransactionsViewModel>>
 {
     public override void Configure()
     {
@@ -16,7 +16,7 @@ public class GetTransactionsByBankAccountEndpoint(ITransactionService transactio
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(GetTransactionsRequest request, CancellationToken ct)
+    public override async Task HandleAsync(GetTransactionsRequestModel request, CancellationToken ct)
     {
         var result = transactionService.GetTransactions(request.BankAccountId);
 
