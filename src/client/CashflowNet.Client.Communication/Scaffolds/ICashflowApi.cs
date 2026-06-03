@@ -9,7 +9,7 @@ namespace CashflowNet.Client.Communication.Scaffolds;
 public interface ICashflowApi
 {
     [Post("/bankaccounts")]
-    Task CreateBankAccount(CreateBankAccountRequestModel bankAccount);
+    Task<GetBankAccountsViewModel> CreateBankAccount(CreateBankAccountRequestModel bankAccount);
     
     [Get("/bankaccounts")]
     Task<List<GetBankAccountsViewModel>> GetBankAccounts();

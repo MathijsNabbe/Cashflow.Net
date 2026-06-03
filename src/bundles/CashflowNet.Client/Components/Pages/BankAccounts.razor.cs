@@ -13,6 +13,7 @@ public partial class BankAccounts
     private GetBankAccountsViewModel? _bankAccountBackup;
 
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
     private async Task<TableData<GetBankAccountsViewModel>> LoadBankAccounts(
         TableState state,
@@ -29,12 +30,14 @@ public partial class BankAccounts
 
     private async Task CreateBankAccount()
     {
-        await CashflowApi.CreateBankAccount(new CreateBankAccountRequestModel
+        var result = await CashflowApi.CreateBankAccount(new CreateBankAccountRequestModel
         {
             Name = "New Bank Account"
         });
 
         await _bankAccountsTable.ReloadServerData();
+
+        Snackbar.Add("New bank account created", Severity.Success);
     }
 
     private async Task DeleteBankAccount(GetBankAccountsViewModel context)

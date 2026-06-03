@@ -8,15 +8,22 @@ public class BankAccountService : IBankAccountService
 {
     private readonly CashflowDbContext _dbContext = new();
     
-    public async Task CreateBankAccount(CreateBankAccountDto bankAccount)
+    public async Task<GetBankAccountsDto> CreateBankAccount(CreateBankAccountDto bankAccount)
     {
-        _dbContext.BankAccounts.Add(new BankAccount
+        var item = new BankAccount
         {
             Id = Guid.NewGuid(),
             Name = bankAccount.Name
-        });
+        };
         
+        _dbContext.BankAccounts.Add(item);
         await _dbContext.SaveChangesAsync();
+
+        return new GetBankAccountsDto
+        {
+            Id = item.Id,
+            Name = item.Name
+        };
     }
     
     public async Task<List<GetBankAccountsDto>> GetBankAccounts()
