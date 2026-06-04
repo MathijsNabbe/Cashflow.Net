@@ -30,7 +30,7 @@ public partial class BankAccounts
 
     private async Task CreateBankAccount()
     {
-        var result = await CashflowApi.CreateBankAccount(new CreateBankAccountRequestModel
+        await CashflowApi.CreateBankAccount(new CreateBankAccountRequestModel
         {
             Name = "New Bank Account"
         });
