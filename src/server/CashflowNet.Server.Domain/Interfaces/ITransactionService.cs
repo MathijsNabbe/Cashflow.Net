@@ -6,4 +6,5 @@ public interface ITransactionService
 {
     public Task CreateTransaction(CreateTransactionDto bankAccount);
     public List<GetTransactionsDto> GetTransactions(Guid requestBankAccountId);
+    public Task DeleteTransaction(Guid id);
 }

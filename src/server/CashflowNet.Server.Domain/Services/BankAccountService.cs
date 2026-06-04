@@ -41,7 +41,7 @@ public class BankAccountService : IBankAccountService
         if (target is null)
             throw new Exception("Bank account not found");
         
-        _dbContext.BankAccounts.Remove(_dbContext.BankAccounts.First(x => x.Id == id));
+        _dbContext.BankAccounts.Remove(target);
         
         await _dbContext.SaveChangesAsync();
     }

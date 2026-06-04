@@ -14,7 +14,7 @@ public partial class Transactions
     private MudTable<GetTransactionsViewModel> _transactionTable = null!;
     private GetTransactionsViewModel? _selectedTransaction;
     private GetTransactionsViewModel? _transactionBackup;
-    
+
     private TableGroupDefinition<GetTransactionsViewModel>? _groupDefinition = new()
     {
         GroupName = "Group",
@@ -25,7 +25,7 @@ public partial class Transactions
 
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
     [Inject] private IBankAccountService BankAccountService { get; set; } = null!;
-    
+
     private async Task<TableData<GetTransactionsViewModel>> LoadTransactions(
         TableState state,
         CancellationToken cancellationToken)
@@ -41,8 +41,12 @@ public partial class Transactions
             };
         }
 
-        var incomeItems = await CashflowApi.GetTransactions(selectedBankAccountId.Value);
-    
+        var incomeItems = await CashflowApi.GetTransactions(new GetTransactionsRequestModel
+            {
+                BankAccountId = selectedBankAccountId.Value
+            }
+        );
+
         return new TableData<GetTransactionsViewModel>
         {
             Items = incomeItems,
@@ -60,20 +64,20 @@ public partial class Transactions
             Type = TransactionType.Income,
             BankAccountId = (await BankAccountService.GetSelectedBankAccount()).Value,
         });
-    
+
         await _transactionTable.ReloadServerData();
     }
-    
-    // private async Task DeleteBankAccount(GetBankAccountsViewModel context)
-    // {
-    //     await CashflowApi.DeleteBankAccount(new DeleteBankAccountViewModel
-    //     {
-    //         Id = context.Id
-    //     });
-    //     
-    //     await _transactionTable.ReloadServerData();
-    // }
-    //
+
+    private async Task DeleteTransaction(GetTransactionsViewModel context)
+    {
+        await CashflowApi.DeleteTransaction(new DeleteTransactionRequestModel
+        {
+            TransactionId = context.Id
+        });
+
+        await _transactionTable.ReloadServerData();
+    }
+
     // private async Task UpdateBankAccount()
     // {
     //     if (_selectedTransaction is null)

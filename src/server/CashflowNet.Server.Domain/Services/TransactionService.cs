@@ -62,4 +62,15 @@ public class TransactionService : ITransactionService
                         : null
             }).ToList();
     }
+    
+    public async Task DeleteTransaction(Guid id)
+    {
+        var target = await _dbContext.Transactions.FindAsync(id);
+        if (target is null)
+            throw new Exception("Transaction not found");
+        
+        _dbContext.Transactions.Remove(target);
+        
+        await _dbContext.SaveChangesAsync();
+    }
 }
