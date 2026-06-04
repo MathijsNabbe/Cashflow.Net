@@ -37,6 +37,9 @@ public class TransactionService : ITransactionService
     public List<GetTransactionsDto> GetTransactions(Guid bankAccountId)
     {
         return _dbContext.Transactions
+            .Where(x => 
+                x.BankAccountId == bankAccountId ||
+                x.TargetBankAccountId == bankAccountId)
             .Include(x => x.BankAccount)
             .Include(x => x.TargetBankAccount)
             .Select(x => new GetTransactionsDto
