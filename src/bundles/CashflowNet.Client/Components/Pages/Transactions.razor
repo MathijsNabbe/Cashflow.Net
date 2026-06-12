@@ -21,6 +21,9 @@
     <ToolBarContent>
         <MudText Typo="Typo.h6">Transactions</MudText>
     </ToolBarContent>
+    <GroupHeaderTemplate>
+        <MudTh Class="mud-table-cell-custom-group" colspan="6">@($"{context.GroupName}: {context.Key}")</MudTh>
+    </GroupHeaderTemplate>
     <HeaderContent>
         <MudTh>Name</MudTh>
         <MudTh>Value</MudTh>
