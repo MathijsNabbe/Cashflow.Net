@@ -1,5 +1,7 @@
 ﻿@page "/transactions"
 @using CashflowNet.Client.Components.Formatters
+@using CashflowNet.Shared.Enums
+@using CashflowNet.Shared.ViewModels.BankAccounts
 @using CashflowNet.Shared.ViewModels.Transactions
 
 <PageTitle>Transactions</PageTitle>
@@ -12,22 +14,26 @@
           CanCancelEdit="true"
           Hover="true"
           @bind-SelectedItem="_selectedTransaction"
-          GroupBy="@_groupDefinition">
-          @* OnCommitEditClick="UpdateBankAccount" *@
-          @* RowEditPreview="PrepareBankAccountEdit" *@
-          @* RowEditCancel="ResetBankAccountEdit"> *@
+          GroupBy="@_groupDefinition"
+          OnCommitEditClick="UpdateTransaction"
+          RowEditPreview="PrepareTransactionEdit"
+          RowEditCancel="ResetTransactionEdit">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Bank accounts</MudText>
+        <MudText Typo="Typo.h6">Transactions</MudText>
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Name</MudTh>
         <MudTh>Value</MudTh>
+        <MudTh>Type</MudTh>
+        <MudTh>Target Bank Account</MudTh>
         <MudTh>Start Date</MudTh>
         <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Value">@(CurrencyFormatter.GetCurrencySymbol(context.Currency) + context.Value)</MudTd>
+        <MudTd DataLabel="Type">@context.Type</MudTd>
+        <MudTd DataLabel="Target Bank Account">@(context.TargetBankAccount?.Name ?? "-")</MudTd>
         <MudTd DataLabel="Start Date">@context.StartDate</MudTd>
         <MudTd DataLabel="Actions">
             <MudIconButton Icon="@Icons.Material.Filled.Delete"
@@ -35,12 +41,41 @@
                            OnClick="@(() => DeleteTransaction(context))"/>
         </MudTd>
     </RowTemplate>
-    @* <RowEditingTemplate> *@
-    @*     <MudTd DataLabel="Name"> *@
-    @*         <MudTextField @bind-Value="context.Name" Required /> *@
-    @*     </MudTd> *@
-    @* </RowEditingTemplate> *@
-    @* <NoRecordsContent> *@
-    @*     <MudText>No bank accounts found</MudText> *@
-    @* </NoRecordsContent> *@
+    <RowEditingTemplate>
+        <MudTd DataLabel="Name">
+            <MudTextField @bind-Value="context.Name" Required />
+        </MudTd>
+        <MudTd DataLabel="Value">
+            <MudNumericField @bind-Value="context.Value" Required />
+        </MudTd>
+        <MudTd DataLabel="Type">
+            <MudSelect @bind-Value="context.Type" T="TransactionType" Required>
+                @foreach (var type in Enum.GetValues<TransactionType>())
+                {
+                    <MudSelectItem Value="@type">@type</MudSelectItem>
+                }
+            </MudSelect>
+        </MudTd>
+        <MudTd DataLabel="Target Bank Account">
+            @if (context.Type == TransactionType.Transfer)
+            {
+                <MudSelect @bind-Value="context.TargetBankAccount" T="GetBankAccountsViewModel" Label="Target Bank Account" AnchorOrigin="Origin.BottomCenter" Required>
+                    @foreach (var bankAccount in _availableBankAccounts.Where(x => x.Id != context.BankAccount.Id))
+                    {
+                        <MudSelectItem Value="@bankAccount">@bankAccount.Name</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            else
+            {
+                <MudText>-</MudText>
+            }
+        </MudTd>
+        <MudTd DataLabel="Start Date">
+            <MudDatePicker @bind-Date="context.StartDate" Label="Start Date" />
+        </MudTd>
+    </RowEditingTemplate>
+    <NoRecordsContent>
+        <MudText>No transactions found</MudText>
+    </NoRecordsContent>
 </MudTable>

@@ -3,6 +3,7 @@ using CashflowNet.Client.Communication.Scaffolds;
 using CashflowNet.Client.Interfaces;
 using CashflowNet.Shared.Enums;
 using CashflowNet.Shared.RequestModels.Transactions;
+using CashflowNet.Shared.ViewModels.BankAccounts;
 using CashflowNet.Shared.ViewModels.Transactions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -25,6 +26,9 @@ public partial class Transactions
 
     [Inject] private ICashflowApi CashflowApi { get; set; } = null!;
     [Inject] private IBankAccountService BankAccountService { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
+
+    private List<GetBankAccountsViewModel> _availableBankAccounts = new();
 
     private async Task<TableData<GetTransactionsViewModel>> LoadTransactions(
         TableState state,
@@ -40,6 +44,8 @@ public partial class Transactions
                 TotalItems = 0
             };
         }
+
+        _availableBankAccounts = await CashflowApi.GetBankAccounts();
 
         var incomeItems = await CashflowApi.GetTransactions(new GetTransactionsRequestModel
             {
@@ -78,38 +84,58 @@ public partial class Transactions
         await _transactionTable.ReloadServerData();
     }
 
-    // private async Task UpdateBankAccount()
-    // {
-    //     if (_selectedTransaction is null)
-    //         return;
-    //     
-    //     await CashflowApi.UpdateBankAccount(new UpdateBankAccountViewModel
-    //     {
-    //         Id = _selectedTransaction.Id,
-    //         Name = _selectedTransaction.Name
-    //     });
-    //
-    //     await _transactionTable.ReloadServerData();
-    // }
-    //
-    // private void PrepareBankAccountEdit(object? bankAccount)
-    // {
-    //     if (bankAccount is null)
-    //         return;
-    //
-    //     _bankAccountBackup = new GetBankAccountsViewModel
-    //     {
-    //         Id = ((GetBankAccountsViewModel)bankAccount).Id,
-    //         Name = ((GetBankAccountsViewModel)bankAccount).Name
-    //     };
-    // }
-    //
-    // private void ResetBankAccountEdit(object? bankAccount)
-    // {
-    //     if (bankAccount is null || _bankAccountBackup is null || _bankAccountBackup.Id != ((GetBankAccountsViewModel)bankAccount).Id)
-    //         return;
-    //     
-    //     ((GetBankAccountsViewModel)bankAccount).Id = _bankAccountBackup.Id;
-    //     ((GetBankAccountsViewModel)bankAccount).Name = _bankAccountBackup.Name;
-    // }
+    private async Task UpdateTransaction()
+    {
+        if (_selectedTransaction is null)
+            return;
+
+        await CashflowApi.UpdateTransaction(new UpdateTransactionRequestModel
+        {
+            Id = _selectedTransaction.Id,
+            Name = _selectedTransaction.Name,
+            Value = _selectedTransaction.Value,
+            Currency = _selectedTransaction.Currency,
+            StartDate = _selectedTransaction.StartDate,
+            Type = _selectedTransaction.Type,
+            BankAccountId = _selectedTransaction.BankAccount.Id,
+            TargetBankAccountId = _selectedTransaction.TargetBankAccount?.Id
+        });
+
+        await _transactionTable.ReloadServerData();
+        
+        Snackbar.Add("Transaction updated", Severity.Success);
+    }
+
+    private void PrepareTransactionEdit(object? transaction)
+    {
+        if (transaction is null)
+            return;
+
+        var t = (GetTransactionsViewModel)transaction;
+        _transactionBackup = new GetTransactionsViewModel
+        {
+            Id = t.Id,
+            Name = t.Name,
+            Value = t.Value,
+            Currency = t.Currency,
+            StartDate = t.StartDate,
+            Type = t.Type,
+            BankAccount = t.BankAccount,
+            TargetBankAccount = t.TargetBankAccount
+        };
+    }
+
+    private void ResetTransactionEdit(object? transaction)
+    {
+        if (transaction is null || _transactionBackup is null || _transactionBackup.Id != ((GetTransactionsViewModel)transaction).Id)
+            return;
+        
+        ((GetTransactionsViewModel)transaction).Name = _transactionBackup.Name;
+        ((GetTransactionsViewModel)transaction).Value = _transactionBackup.Value;
+        ((GetTransactionsViewModel)transaction).Currency = _transactionBackup.Currency;
+        ((GetTransactionsViewModel)transaction).StartDate = _transactionBackup.StartDate;
+        ((GetTransactionsViewModel)transaction).Type = _transactionBackup.Type;
+        ((GetTransactionsViewModel)transaction).BankAccount = _transactionBackup.BankAccount;
+        ((GetTransactionsViewModel)transaction).TargetBankAccount = _transactionBackup.TargetBankAccount;
+    }
 }

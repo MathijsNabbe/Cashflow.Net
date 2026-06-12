@@ -76,4 +76,28 @@ public class TransactionService : ITransactionService
         
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task UpdateTransaction(UpdateTransactionDto transaction)
+    {
+        var target = await _dbContext.Transactions.FindAsync(transaction.Id);
+        if (target is null)
+            throw new Exception("Transaction not found");
+
+        if (transaction.Type == TransactionType.Transfer && transaction.TargetBankAccountId == null)
+            throw new ArgumentNullException(nameof(transaction.TargetBankAccountId),
+                "A transfer must always have a target bank account");
+
+        if (transaction.Type != TransactionType.Transfer && transaction.TargetBankAccountId != null)
+            throw new InvalidOperationException("A non-transfer transaction cannot have a target bank account");
+
+        target.Name = transaction.Name;
+        target.Value = transaction.Value;
+        target.Currency = transaction.Currency;
+        target.StartDate = transaction.StartDate ?? target.StartDate;
+        target.Type = transaction.Type;
+        target.BankAccountId = transaction.BankAccountId;
+        target.TargetBankAccountId = transaction.TargetBankAccountId;
+
+        await _dbContext.SaveChangesAsync();
+    }
 }

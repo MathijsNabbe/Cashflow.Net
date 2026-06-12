@@ -28,4 +28,7 @@ public interface ICashflowApi
     
     [Delete("/transactions")]
     Task DeleteTransaction(DeleteTransactionRequestModel transaction);
+
+    [Put("/transactions")]
+    Task UpdateTransaction(UpdateTransactionRequestModel transaction);
 }
