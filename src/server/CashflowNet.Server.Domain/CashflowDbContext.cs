@@ -18,5 +18,28 @@ public class CashflowDbContext : DbContext
     }
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+    {
+        options.UseSqlite($"Data Source={DbPath}");
+    }
+
+    public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+    {
+        await Database.ExecuteSqlRawAsync("PRAGMA foreign_keys = ON;", cancellationToken);
+        return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Transaction>()
+            .HasOne(t => t.BankAccount)
+            .WithMany()
+            .HasForeignKey(t => t.BankAccountId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Transaction>()
+            .HasOne(t => t.TargetBankAccount)
+            .WithMany()
+            .HasForeignKey(t => t.TargetBankAccountId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
 }
