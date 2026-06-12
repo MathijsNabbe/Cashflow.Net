@@ -27,7 +27,6 @@
     <HeaderContent>
         <MudTh>Name</MudTh>
         <MudTh>Value</MudTh>
-        <MudTh>Type</MudTh>
         <MudTh>Target Bank Account</MudTh>
         <MudTh>Start Date</MudTh>
         <MudTh>Actions</MudTh>
@@ -35,7 +34,6 @@
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Value">@(CurrencyFormatter.GetCurrencySymbol(context.Currency) + context.Value)</MudTd>
-        <MudTd DataLabel="Type">@context.Type</MudTd>
         <MudTd DataLabel="Target Bank Account">@(context.TargetBankAccount?.Name ?? "-")</MudTd>
         <MudTd DataLabel="Start Date">@context.StartDate</MudTd>
         <MudTd DataLabel="Actions">
