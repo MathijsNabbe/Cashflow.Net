@@ -25,6 +25,7 @@ public class GetTransactionsByBankAccountEndpoint(ITransactionService transactio
             Name = x.Name,
             Value = x.Value,
             Currency = x.Currency,
+            StartDate = x.StartDate,
             Type = x.Type,
             BankAccount = new GetBankAccountsViewModel
             {

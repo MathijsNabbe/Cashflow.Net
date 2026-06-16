@@ -24,7 +24,7 @@ public interface ICashflowApi
     Task CreateTransaction(CreateTransactionRequestModel transaction);
     
     [Get("/transactions")]
-    Task<List<GetTransactionsViewModel>> GetTransactions(GetTransactionsRequestModel request);
+    Task<List<GetTransactionsViewModel>> GetTransactions([Query] GetTransactionsRequestModel request);
     
     [Delete("/transactions")]
     Task DeleteTransaction(DeleteTransactionRequestModel transaction);

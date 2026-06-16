@@ -33,9 +33,11 @@
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="Value">@(CurrencyFormatter.GetCurrencySymbol(context.Currency) + context.Value)</MudTd>
+        <MudTd DataLabel="Value">
+            @RenderTransactionValueAlert(context)
+        </MudTd>
         <MudTd DataLabel="Target Bank Account">@(context.TargetBankAccount?.Name ?? "-")</MudTd>
-        <MudTd DataLabel="Start Date">@context.StartDate</MudTd>
+        <MudTd DataLabel="Start Date">@context.StartDate?.ToString("yyyy-MM-dd")</MudTd>
         <MudTd DataLabel="Actions">
             <MudIconButton Icon="@Icons.Material.Filled.Delete"
                            Color="Color.Primary"

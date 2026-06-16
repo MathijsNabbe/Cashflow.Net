@@ -1,11 +1,13 @@
 using System.Text.Json;
 using CashflowNet.Client.Communication.Scaffolds;
+using CashflowNet.Client.Components.Formatters;
 using CashflowNet.Client.Interfaces;
 using CashflowNet.Shared.Enums;
 using CashflowNet.Shared.RequestModels.Transactions;
 using CashflowNet.Shared.ViewModels.BankAccounts;
 using CashflowNet.Shared.ViewModels.Transactions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using MudBlazor;
 
 namespace CashflowNet.Client.Components.Pages;
@@ -29,13 +31,14 @@ public partial class Transactions
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
     private List<GetBankAccountsViewModel> _availableBankAccounts = new();
+    private Guid? _selectedBankAccountId;
 
     private async Task<TableData<GetTransactionsViewModel>> LoadTransactions(
         TableState state,
         CancellationToken cancellationToken)
     {
-        var selectedBankAccountId = await BankAccountService.GetSelectedBankAccount();
-        if (selectedBankAccountId == null)
+        _selectedBankAccountId = await BankAccountService.GetSelectedBankAccount();
+        if (_selectedBankAccountId == null)
         {
             // TODO: Handle gracefully & show toast
             return new TableData<GetTransactionsViewModel>
@@ -47,16 +50,16 @@ public partial class Transactions
 
         _availableBankAccounts = await CashflowApi.GetBankAccounts();
 
-        var incomeItems = await CashflowApi.GetTransactions(new GetTransactionsRequestModel
+        var items = await CashflowApi.GetTransactions(new GetTransactionsRequestModel
             {
-                BankAccountId = selectedBankAccountId.Value
+                BankAccountId = _selectedBankAccountId.Value
             }
         );
 
         return new TableData<GetTransactionsViewModel>
         {
-            Items = incomeItems,
-            TotalItems = incomeItems.Count
+            Items = items,
+            TotalItems = items.Count
         };
     }
 
@@ -138,4 +141,33 @@ public partial class Transactions
         ((GetTransactionsViewModel)transaction).BankAccount = _transactionBackup.BankAccount;
         ((GetTransactionsViewModel)transaction).TargetBankAccount = _transactionBackup.TargetBankAccount;
     }
+
+    private RenderFragment RenderTransactionValueAlert(GetTransactionsViewModel transaction) => builder =>
+    {
+        var (severity, prefix) = transaction.Type switch
+        {
+            TransactionType.Income => (Severity.Success, "+ "),
+            TransactionType.Expense => (Severity.Error, "- "),
+            TransactionType.Transfer when transaction.BankAccount.Id == _selectedBankAccountId => (Severity.Error, "- "),
+            TransactionType.Transfer when transaction.TargetBankAccount?.Id == _selectedBankAccountId => (Severity.Success, "+ "),
+            _ => (Severity.Normal, string.Empty)
+        };
+
+        if (severity == Severity.Normal)
+        {
+            builder.AddContent(0, $"{CurrencyFormatter.GetCurrencySymbol(transaction.Currency)}{transaction.Value}");
+            return;
+        }
+
+        builder.OpenComponent<MudAlert>(1);
+        builder.AddAttribute(2, nameof(MudAlert.Severity), severity);
+        builder.AddAttribute(3, nameof(MudAlert.NoIcon), true);
+        builder.AddAttribute(4, nameof(MudAlert.Dense), true);
+        builder.AddAttribute(5, nameof(MudAlert.Style), "padding: 0 4px; width: fit-content;");
+        builder.AddAttribute(6, nameof(MudAlert.ChildContent), (RenderFragment)(childBuilder =>
+        {
+            childBuilder.AddContent(7, $"{prefix}{CurrencyFormatter.GetCurrencySymbol(transaction.Currency)}{transaction.Value}");
+        }));
+        builder.CloseComponent();
+    };
 }

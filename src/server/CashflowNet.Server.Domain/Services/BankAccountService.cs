@@ -4,9 +4,9 @@ using CashflowNet.Server.Domain.Interfaces;
 
 namespace CashflowNet.Server.Domain.Services;
 
-public class BankAccountService : IBankAccountService
+public class BankAccountService(CashflowDbContext dbContext) : IBankAccountService
 {
-    private readonly CashflowDbContext _dbContext = new();
+    private readonly CashflowDbContext _dbContext = dbContext;
     
     public async Task<GetBankAccountsDto> CreateBankAccount(CreateBankAccountDto bankAccount)
     {

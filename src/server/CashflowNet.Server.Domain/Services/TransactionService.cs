@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CashflowNet.Server.Domain.Services;
 
-public class TransactionService : ITransactionService
+public class TransactionService(CashflowDbContext dbContext) : ITransactionService
 {
-    private readonly CashflowDbContext _dbContext = new();
+    private readonly CashflowDbContext _dbContext = dbContext;
 
     public async Task CreateTransaction(CreateTransactionDto transaction)
     {
@@ -26,7 +26,7 @@ public class TransactionService : ITransactionService
             Name = transaction.Name,
             Value = transaction.Value,
             Currency = transaction.Currency,
-            StartDate = transaction.StartDate ?? DateTime.UtcNow,
+            StartDate = transaction.StartDate ?? DateTime.Now,
             Type = transaction.Type,
             BankAccountId = transaction.BankAccountId
         });
@@ -95,7 +95,6 @@ public class TransactionService : ITransactionService
         target.Currency = transaction.Currency;
         target.StartDate = transaction.StartDate ?? target.StartDate;
         target.Type = transaction.Type;
-        target.BankAccountId = transaction.BankAccountId;
         target.TargetBankAccountId = transaction.TargetBankAccountId;
 
         await _dbContext.SaveChangesAsync();
