@@ -1,6 +1,6 @@
 using System.Text.Json;
 using CashflowNet.Client.Communication.Scaffolds;
-using CashflowNet.Client.Components.Formatters;
+using CashflowNet.Client.Formatters;
 using CashflowNet.Client.Interfaces;
 using CashflowNet.Shared.Enums;
 using CashflowNet.Shared.RequestModels.Transactions;

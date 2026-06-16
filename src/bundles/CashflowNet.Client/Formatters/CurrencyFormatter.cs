@@ -1,6 +1,6 @@
 using CashflowNet.Shared.Enums;
 
-namespace CashflowNet.Client.Components.Formatters;
+namespace CashflowNet.Client.Formatters;
 
 public static class CurrencyFormatter
 {
