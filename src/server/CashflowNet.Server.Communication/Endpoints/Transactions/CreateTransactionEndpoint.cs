@@ -21,6 +21,7 @@ public class CreateTransactionEndpoint(ITransactionService transactionService) :
             Value = request.Value,
             Currency = request.Currency,
             Type = request.Type,
+            Interval = request.Interval,
             StartDate = request.StartDate,
             BankAccountId = request.BankAccountId,
             TargetBankAccountId = request.TargetBankAccountId

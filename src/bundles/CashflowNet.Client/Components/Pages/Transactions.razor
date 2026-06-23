@@ -26,6 +26,7 @@
     <HeaderContent>
         <MudTh>Name</MudTh>
         <MudTh>Value</MudTh>
+        <MudTh>Interval</MudTh>
         <MudTh>Target Bank Account</MudTh>
         <MudTh>Start Date</MudTh>
         <MudTh>Actions</MudTh>
@@ -35,6 +36,7 @@
         <MudTd DataLabel="Value">
             @RenderTransactionValueAlert(context)
         </MudTd>
+        <MudTd DataLabel="Interval">@context.Interval</MudTd>
         <MudTd DataLabel="Target Bank Account">@(context.TargetBankAccount?.Name ?? "-")</MudTd>
         <MudTd DataLabel="Start Date">@context.StartDate?.ToString("yyyy-MM-dd")</MudTd>
         <MudTd DataLabel="Actions">
@@ -49,6 +51,14 @@
         </MudTd>
         <MudTd DataLabel="Value">
             <MudNumericField @bind-Value="context.Value" Required />
+        </MudTd>
+        <MudTd DataLabel="Interval">
+            <MudSelect @bind-Value="context.Interval" T="TransactionInterval" Required>
+                @foreach (var interval in Enum.GetValues<TransactionInterval>())
+                {
+                    <MudSelectItem Value="@interval">@interval</MudSelectItem>
+                }
+            </MudSelect>
         </MudTd>
         <MudTd DataLabel="Type">
             <MudSelect @bind-Value="context.Type" T="TransactionType" Required>

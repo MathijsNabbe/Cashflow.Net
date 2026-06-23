@@ -33,6 +33,7 @@ namespace CashflowNet.Server.Domain.Migrations
                     Currency = table.Column<int>(type: "INTEGER", nullable: false),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    Interval = table.Column<int>(type: "INTEGER", nullable: false),
                     BankAccountId = table.Column<Guid>(type: "TEXT", nullable: false),
                     TargetBankAccountId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -49,7 +50,8 @@ namespace CashflowNet.Server.Domain.Migrations
                         name: "FK_Transactions_BankAccounts_TargetBankAccountId",
                         column: x => x.TargetBankAccountId,
                         principalTable: "BankAccounts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

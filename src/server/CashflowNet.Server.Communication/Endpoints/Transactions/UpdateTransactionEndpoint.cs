@@ -23,6 +23,7 @@ public class UpdateTransactionEndpoint(ITransactionService transactionService) :
             Currency = request.Currency,
             StartDate = request.StartDate,
             Type = request.Type,
+            Interval = request.Interval,
             BankAccountId = request.BankAccountId,
             TargetBankAccountId = request.TargetBankAccountId
         });

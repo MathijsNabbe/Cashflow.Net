@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CashflowNet.Server.Domain.Migrations
 {
     [DbContext(typeof(CashflowDbContext))]
-    [Migration("20260612141133_AddCascadeDeleteToTargetBankAccount")]
-    partial class AddCascadeDeleteToTargetBankAccount
+    [Migration("20260616144258_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace CashflowNet.Server.Domain.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Currency")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Interval")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")

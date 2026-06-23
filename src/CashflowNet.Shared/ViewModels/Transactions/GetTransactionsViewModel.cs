@@ -11,6 +11,7 @@ public class GetTransactionsViewModel
     public required Currency Currency { get; set; }
     public DateTime? StartDate { get; set; }
     public required TransactionType Type { get; set; }
+    public required TransactionInterval Interval { get; set; }
         
     public GetBankAccountsViewModel BankAccount { get; set; }
     public GetBankAccountsViewModel? TargetBankAccount { get; set; }

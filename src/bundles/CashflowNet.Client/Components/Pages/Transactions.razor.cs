@@ -71,6 +71,7 @@ public partial class Transactions
             Value = 2000,
             Currency = Currency.Euro,
             Type = TransactionType.Income,
+            Interval = TransactionInterval.Monthly,
             BankAccountId = (await BankAccountService.GetSelectedBankAccount()).Value,
         });
 
@@ -100,6 +101,7 @@ public partial class Transactions
             Currency = _selectedTransaction.Currency,
             StartDate = _selectedTransaction.StartDate,
             Type = _selectedTransaction.Type,
+            Interval = _selectedTransaction.Interval,
             BankAccountId = _selectedTransaction.BankAccount.Id,
             TargetBankAccountId = _selectedTransaction.TargetBankAccount?.Id
         });
@@ -123,6 +125,7 @@ public partial class Transactions
             Currency = t.Currency,
             StartDate = t.StartDate,
             Type = t.Type,
+            Interval = t.Interval,
             BankAccount = t.BankAccount,
             TargetBankAccount = t.TargetBankAccount
         };
@@ -138,6 +141,7 @@ public partial class Transactions
         ((GetTransactionsViewModel)transaction).Currency = _transactionBackup.Currency;
         ((GetTransactionsViewModel)transaction).StartDate = _transactionBackup.StartDate;
         ((GetTransactionsViewModel)transaction).Type = _transactionBackup.Type;
+        ((GetTransactionsViewModel)transaction).Interval = _transactionBackup.Interval;
         ((GetTransactionsViewModel)transaction).BankAccount = _transactionBackup.BankAccount;
         ((GetTransactionsViewModel)transaction).TargetBankAccount = _transactionBackup.TargetBankAccount;
     }

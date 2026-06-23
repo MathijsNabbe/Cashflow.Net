@@ -28,6 +28,7 @@ public class TransactionService(CashflowDbContext dbContext) : ITransactionServi
             Currency = transaction.Currency,
             StartDate = transaction.StartDate ?? DateTime.Now,
             Type = transaction.Type,
+            Interval = transaction.Interval,
             BankAccountId = transaction.BankAccountId
         });
 
@@ -50,6 +51,7 @@ public class TransactionService(CashflowDbContext dbContext) : ITransactionServi
                 Currency = x.Currency,
                 StartDate = x.StartDate,
                 Type = x.Type,
+                Interval = x.Interval,
                 BankAccount = new GetBankAccountsDto
                 {
                     Id = x.BankAccount.Id,
@@ -95,6 +97,7 @@ public class TransactionService(CashflowDbContext dbContext) : ITransactionServi
         target.Currency = transaction.Currency;
         target.StartDate = transaction.StartDate ?? target.StartDate;
         target.Type = transaction.Type;
+        target.Interval = transaction.Interval;
         target.TargetBankAccountId = transaction.TargetBankAccountId;
 
         await _dbContext.SaveChangesAsync();

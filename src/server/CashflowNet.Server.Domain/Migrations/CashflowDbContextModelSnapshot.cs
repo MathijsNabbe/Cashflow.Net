@@ -44,6 +44,9 @@ namespace CashflowNet.Server.Domain.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Interval")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
