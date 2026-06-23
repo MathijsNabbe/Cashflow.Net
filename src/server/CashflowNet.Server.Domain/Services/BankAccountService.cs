@@ -1,6 +1,7 @@
 using CashflowNet.Server.Domain.Dtos.BankAccounts;
 using CashflowNet.Server.Domain.Entities;
 using CashflowNet.Server.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashflowNet.Server.Domain.Services;
 
@@ -28,11 +29,11 @@ public class BankAccountService(CashflowDbContext dbContext) : IBankAccountServi
     
     public async Task<List<GetBankAccountsDto>> GetBankAccounts()
     {
-        return _dbContext.BankAccounts.Select(x => new GetBankAccountsDto
+        return await _dbContext.BankAccounts.Select(x => new GetBankAccountsDto
         {
             Id = x.Id,
             Name = x.Name
-        }).ToList();
+        }).ToListAsync();
     }
     
     public async Task DeleteBankAccount(Guid id)
